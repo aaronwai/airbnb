@@ -10,6 +10,7 @@ import { useForm } from "react-hook-form";
 import CountrySelect from "../input/CountrySelect";
 import dynamic from "next/dynamic";
 import Counter from "../input/Counter";
+import ImageUpload from "../input/ImageUpload";
 
 enum STEPS {
   CATEGORY = 0,
@@ -67,7 +68,7 @@ const RentModal = () => {
   const guestCount = watch("guestCount"); // for third step
   const roomCount = watch("roomCount");
   const bathroomCount = watch("bathroomCount");
-
+  const imageSrc = watch("imageSrc"); // for 4th step
   const onBack = () => {
     setStep((value) => value - 1);
   };
@@ -164,6 +165,20 @@ const RentModal = () => {
           value={bathroomCount}
           title='Bathrooms'
           subtitle='How many bathrooms do you have?'
+        />
+      </div>
+    );
+  }
+  if (step === STEPS.IMAGES) {
+    bodyContent = (
+      <div className='flex flex-col gap-8'>
+        <Heading
+          title='Add a photo of your place'
+          subtitle='Show guests what your place looks like!'
+        />
+        <ImageUpload
+          onChange={(value) => setCustomValue("imageSrc", value)}
+          value={imageSrc}
         />
       </div>
     );
